@@ -33,13 +33,13 @@ echo "v2ray 安装完成！"
 }
 
 change_v2conf(){
-ouid=sed -n '25p' /etc/v2ray/config.json | awk -F'"' '{print $4}'
+ouid=`sed -n '25p' /etc/v2ray/config.json | awk -F'"' '{print $4}'`
 uid=`cat /proc/sys/kernel/random/uuid`
 sed -i "s/$ouid/$uid/g" /etc/v2ray/config.json
 echo "UUID=$uid"
 }
 conf_nginx(){
-wget -qO /etc/nginx/sites-available/ https://raw.githubusercontent.com/huya1121/v2-shell/master/v2.conf
+wget -qO /etc/nginx/sites-available/v2.conf https://raw.githubusercontent.com/huya1121/v2-shell/master/v2.conf
 ln -s /etc/nginx/sites-available/v2.conf /etc/nginx/sites-enable/
 sed 's/$domain/abc.com/g' /etc/nginx/sites-available/v2.conf
 /etc/init.d/nginx restart
