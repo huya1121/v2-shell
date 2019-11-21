@@ -13,10 +13,11 @@ echo "安装acme.sh"
 curl  https://get.acme.sh | sh
 echo "alias acme.sh=~/.acme.sh/acme.sh" >> /root/.bashrc
 source /root/.bashrc
-echo "acme.h 安装完成,生成证书"
+echo "acme.h 安装完成!"
 fi
 }
 acme_cer(){
+echo "生成证书……"
 systemctl stop nginx
 acme.sh  --issue -d $domain  --standalone --force
 systemctl start nginx
@@ -24,16 +25,19 @@ echo "证书生成完成！"
 }
 
 v2ray(){
-echo "开始安装v2ray"
-ouid=sed -n '25p' /etc/v2ray/config.json | awk -F'"' '{print $4}'
-uid=`cat /proc/sys/kernel/random/uuid`
+echo "开始安装/更新v2ray"
 bash <(curl -L -s https://install.direct/go.sh)
 wget -qO  /etc/v2ray/config.json  https://raw.githubusercontent.com/huya1121/v2-shell/master/config.json
-sed -i "s/$ouid/$uid/g" /etc/v2ray/config.json
 systemctl restart v2ray
 echo "v2ray 安装完成！"
 }
 
+change_v2conf(){
+ouid=sed -n '25p' /etc/v2ray/config.json | awk -F'"' '{print $4}'
+uid=`cat /proc/sys/kernel/random/uuid`
+sed -i "s/$ouid/$uid/g" /etc/v2ray/config.json
+echo "UUID=$uid"
+}
 conf_nginx(){
 wget -qO /etc/nginx/sites-available/ https://raw.githubusercontent.com/huya1121/v2-shell/master/v2.conf
 ln -s /etc/nginx/sites-available/v2.conf /etc/nginx/sites-enable/
@@ -49,6 +53,7 @@ ngx_php
 acme
 acme_cer
 v2ray
+change_v2conf()
 conf_nginx
 echo "服务器: $domain"
 echo "端口：443"
