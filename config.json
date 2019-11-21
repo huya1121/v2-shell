@@ -1,0 +1,68 @@
+{
+  "log" : {
+    "access": "/dev/null",
+    "error": "/dev/null",
+    "loglevel": "warning"
+  },
+ 
+  "inbound": {
+    "sniffing": {
+      "enabled": true,
+      "destOverride": [
+        "http",
+        "tls"
+      ]
+    },
+    "port": 50000,
+    "listen":"127.0.0.1",
+    "protocol": "vmess",
+    "allocate": {
+      "strategy": "always"
+    },
+    "settings": {
+      "clients": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000",
+          "level": 1,
+          "alterId": 64,
+      "security": "auto"
+        }
+      ]
+    },
+  
+    "streamSettings": {
+      "network": "ws",
+      "wsSettings": {
+        "connectionReuse": true,
+        "path": "/api/"
+            }
+    }
+    },
+ 
+ 
+  "outbound": {
+    "protocol": "freedom",
+    "settings": {
+    "timeout": 30
+    }
+  },
+  "outboundDetour": [
+    {
+      "protocol": "blackhole",
+      "settings": {},
+      "tag": "blocked"
+    }
+  ],
+ "routing": {
+    "strategy": "rules",
+    "settings": {
+      "rules": [
+        {
+          "type": "field",
+          "ip": ["geoip:private"],
+          "outboundTag": "blocked"
+        }
+      ]
+    }
+  }
+}
