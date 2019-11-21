@@ -2,9 +2,8 @@
 
 ngx_php(){
 apt-get update -y && apt-get upgrade -y
-apt-get install nginx wget socat php7.0-fpm php7.0-curl php7.0-zip php7.0-mysql php7.0-mbstring php7.0-xml php7.0-gd -y
-sed -i "s/\;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g" /etc/php/7.0/fpm/php.ini
-/etc/init.d/php7.0-fpm restart
+apt-get install nginx wget socat  -y
+/etc/init.d/nginx restart
 }
 
 install_acme(){
@@ -16,6 +15,7 @@ source /root/.bashrc
 echo "acme.h 安装完成!"
 fi
 }
+
 acme_cer(){
 echo "生成证书……"
 systemctl stop nginx
@@ -38,6 +38,16 @@ uid=`cat /proc/sys/kernel/random/uuid`
 sed -i "s/$ouid/$uid/g" /etc/v2ray/config.json
 echo "UUID=$uid"
 }
+
+v2_info(){
+echo "服务器: $domain"
+echo "端口：443"
+echo "UUID：$uid"
+echo "PATH：/api/"
+echo "WS+TLS"
+echo "安装完成"
+}
+
 conf_nginx(){
 wget -qO /etc/nginx/sites-available/v2.conf https://raw.githubusercontent.com/huya1121/v2-shell/master/v2.conf
 ln -s /etc/nginx/sites-available/v2.conf /etc/nginx/sites-enabled/v2.conf
@@ -47,17 +57,14 @@ sed -i 's/abc.com/$domain/g' /etc/nginx/sites-available/v2.conf
 
 
 
-read -p "Please input your domain name:" domain
+read -p "请输入域名:" domain
 echo "您输入的域名是：$domain"
+
+#main
 ngx_php
 install_acme
 acme_cer
 v2ray
 change_v2conf
 conf_nginx
-echo "服务器: $domain"
-echo "端口：443"
-echo "UUID：$uid"
-echo "PATH：/api/"
-echo "WS+TLS"
-echo "install complete"
+v2_info
