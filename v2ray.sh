@@ -48,7 +48,7 @@ sed 's/$domain/abc.com/g' /etc/nginx/sites-available/v2.conf
 
 
 read -p "Please input your domain name:" domain
-echo "您输入的域名是：$domian"
+echo "您输入的域名是：$domain"
 ngx_php
 install_acme
 acme_cer
