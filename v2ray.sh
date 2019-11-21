@@ -1,6 +1,6 @@
 #/bin/bash
 
-ngx_php(){
+ngx(){
 apt-get update -y && apt-get upgrade -y
 apt-get install nginx wget socat  -y
 /etc/init.d/nginx restart
@@ -58,7 +58,7 @@ read -p "请输入域名:" domain
 echo "您输入的域名是：$domain"
 
 #main
-ngx_php
+ngx
 install_acme
 acme_cer
 v2ray
