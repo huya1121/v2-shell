@@ -19,7 +19,7 @@ fi
 acme_cer(){
 echo "生成证书……"
 systemctl stop nginx
-acme.sh  --issue -d $domain  --standalone --force
+/root/.acme.sh/acme.sh  --issue -d $domain  --standalone --force
 systemctl start nginx
 echo "证书生成完成！"
 }
@@ -53,7 +53,7 @@ ngx_php
 install_acme
 acme_cer
 v2ray
-change_v2conf()
+change_v2conf
 conf_nginx
 echo "服务器: $domain"
 echo "端口：443"
