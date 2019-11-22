@@ -41,7 +41,7 @@ sed -i "s/$ouid/$uid/g" /etc/v2ray/config.json
 conf_nginx(){
 wget -qO /etc/nginx/sites-available/v2.conf https://raw.githubusercontent.com/huya1121/v2-shell/master/v2.conf
 ln -s /etc/nginx/sites-available/v2.conf /etc/nginx/sites-enabled/v2.conf
-sed -i 's/abc.com/$domain/g' /etc/nginx/sites-available/v2.conf
+sed -i "s/abc.com/$domain/g" /etc/nginx/sites-available/v2.conf
 /etc/init.d/nginx restart
 }
 
