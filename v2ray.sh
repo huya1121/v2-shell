@@ -27,7 +27,6 @@ echo "证书生成完成！"
 v2ray(){
 echo "开始安装/更新v2ray"
 bash <(curl -L -s https://install.direct/go.sh)
-systemctl restart v2ray
 echo "v2ray 安装完成！"
 }
 
@@ -36,6 +35,7 @@ wget -qO  /etc/v2ray/config.json  https://raw.githubusercontent.com/huya1121/v2-
 ouid=`sed -n '25p' /etc/v2ray/config.json | awk -F'"' '{print $4}'`
 uid=`cat /proc/sys/kernel/random/uuid`
 sed -i "s/$ouid/$uid/g" /etc/v2ray/config.json
+systemctl restart v2ray
 }
 
 conf_nginx(){
