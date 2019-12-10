@@ -52,7 +52,7 @@ fi
 
 change_v2conf(){
 wget -qO  /etc/v2ray/config.json  https://raw.githubusercontent.com/huya1121/v2-shell/master/config.json
-ouid=`sed -n '25p' /etc/v2ray/config.json | awk -F'"' '{print $4}'`
+ouid=`sed -n '16p' /etc/v2ray/config.json | awk -F'"' '{print $4}'`
 uid=`cat /proc/sys/kernel/random/uuid`
 sed -i "s/$ouid/$uid/g" /etc/v2ray/config.json
 systemctl restart v2ray
