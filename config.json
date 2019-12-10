@@ -5,20 +5,11 @@
     "loglevel": "warning"
   },
  
-  "inbound": {
-    "sniffing": {
-      "enabled": true,
-      "destOverride": [
-        "http",
-        "tls"
-      ]
-    },
+  "inbounds": [
+  {   
     "port": 50000,
     "listen":"127.0.0.1",
     "protocol": "vmess",
-    "allocate": {
-      "strategy": "always"
-    },
     "settings": {
       "clients": [
         {
@@ -35,34 +26,15 @@
       "wsSettings": {
         "connectionReuse": true,
         "path": "/api/"
-            }
+        }
     }
-    },
- 
- 
-  "outbound": {
+   }
+ ],
+  "outbounds": [
+  {
     "protocol": "freedom",
     "settings": {
     "timeout": 30
     }
-  },
-  "outboundDetour": [
-    {
-      "protocol": "blackhole",
-      "settings": {},
-      "tag": "blocked"
-    }
-  ],
- "routing": {
-    "strategy": "rules",
-    "settings": {
-      "rules": [
-        {
-          "type": "field",
-          "ip": ["geoip:private"],
-          "outboundTag": "blocked"
-        }
-      ]
-    }
   }
-}
+]
