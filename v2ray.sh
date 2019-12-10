@@ -94,12 +94,15 @@ echo "please enter your choise:"
 echo "(0) Install v2ray ws+tls"
 echo "(6) Update SSL Certificate"
 echo "----------------------------------"
-read input
-case $input in
-  0)
+case $1 in
+  install | start)
   install
-  6)
+  ;;
+  renew)
   acme_cer_renew
-  exit;;
+  ;;
+  *)
+  echo "please use bash v2ray.sh install or bash v2ray.sh renew"
+  ;;
 esac
 
