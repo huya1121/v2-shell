@@ -1,15 +1,18 @@
 #/bin/bash
+depend(){
+apt-get update -y && apt-get upgrade -y
+apt-get install wget socat curl -y
+}
 
 ngx(){
-apt-get update -y && apt-get upgrade -y
-apt-get install nginx wget socat  -y
-/etc/init.d/nginx restart
+apt-get install nginx  -y
+systemctl restart nginx || /etc/init.d/nginx restart
 }
 
 install_acme(){
 if [ ! -d "/root/.acme.sh" ]; then
 echo "安装acme.sh"
-curl  https://get.acme.sh | sh
+curl  https://get.acme.sh | sh > /dev/null
 echo "alias acme.sh=~/.acme.sh/acme.sh" >> /root/.bashrc
 source /root/.bashrc
 echo "acme.h 安装完成!"
@@ -17,17 +20,32 @@ fi
 }
 
 acme_cer(){
-echo "生成证书……"
-systemctl stop nginx
+echo "生成证书中……"
+systemctl stop nginx || /etc/init.d/nginx stop
 /root/.acme.sh/acme.sh  --issue -d $domain  --standalone --force
-systemctl start nginx
+systemctl start nginx || /etc/init.d/nginx start
+echo "证书生成完成！"
+}
+
+acme_cer_renew(){
+read -p "请输入域名:" renewdomain
+echo "您输入的域名是：$renewdomain"
+echo "生成证书中……"
+systemctl stop nginx || /etc/init.d/nginx stop
+/root/.acme.sh/acme.sh  --issue -d $renewdomain  --standalone --force
+systemctl start nginx || /etc/init.d/nginx start
 echo "证书生成完成！"
 }
 
 v2ray(){
 echo "开始安装/更新v2ray"
-bash <(curl -L -s https://install.direct/go.sh)
+bash <(curl -L -s https://install.direct/go.sh) > /dev/null
+if [ $? == 0 ]; then
 echo "v2ray 安装完成！"
+else
+echo "安装v2ray失败，请检查网络或者重新安装！"
+exit 2
+fi
 }
 
 change_v2conf(){
@@ -42,10 +60,11 @@ conf_nginx(){
 wget -qO /etc/nginx/sites-available/v2.conf https://raw.githubusercontent.com/huya1121/v2-shell/master/v2.conf
 ln -s /etc/nginx/sites-available/v2.conf /etc/nginx/sites-enabled/v2.conf
 sed -i "s/abc.com/$domain/g" /etc/nginx/sites-available/v2.conf
-/etc/init.d/nginx restart
+systemctl restart nginx || /etc/init.d/nginx restart
 }
 
 v2_info(){
+echo "服务器配置信息如下:"
 echo "服务器: $domain"
 echo "端口：443"
 echo "UUID：$uid"
@@ -57,7 +76,8 @@ echo "安装完成"
 read -p "请输入域名:" domain
 echo "您输入的域名是：$domain"
 
-#main
+install(){
+depend
 ngx
 install_acme
 acme_cer
@@ -65,3 +85,25 @@ v2ray
 change_v2conf
 conf_nginx
 v2_info
+exit 0
+}
+
+#main
+if [ $1 == "renew" ]; then
+  acme_cer_renew
+  exit 0
+if 
+echo "----------------------------------"
+echo "please enter your choise:"
+echo "(0) Install v2ray ws+tls"
+echo "(6) Update SSL Certificate"
+echo "----------------------------------"
+read input
+case $input in
+  0)
+  install
+  6)
+  acme_cer_renew
+  exit;;
+esac
+
