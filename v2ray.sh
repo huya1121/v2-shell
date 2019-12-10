@@ -2,6 +2,8 @@
 depend(){
 apt-get update -y && apt-get upgrade -y
 apt-get install wget socat curl -y
+read -p "请输入域名:" domain
+echo "您输入的域名是：$domain"
 }
 
 ngx(){
@@ -73,9 +75,6 @@ echo "WS+TLS"
 echo "安装完成"
 }
 
-read -p "请输入域名:" domain
-echo "您输入的域名是：$domain"
-
 install(){
 depend
 ngx
@@ -89,11 +88,6 @@ exit 0
 }
 
 #main
-echo "----------------------------------"
-echo "please enter your choise:"
-echo "(0) Install v2ray ws+tls"
-echo "(6) Update SSL Certificate"
-echo "----------------------------------"
 case $1 in
   install | start)
   install
