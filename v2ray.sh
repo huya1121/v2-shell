@@ -89,10 +89,6 @@ exit 0
 }
 
 #main
-if [ $1 == "renew" ]; then
-  acme_cer_renew
-  exit 0
-if 
 echo "----------------------------------"
 echo "please enter your choise:"
 echo "(0) Install v2ray ws+tls"
