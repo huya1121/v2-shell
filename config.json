@@ -1,14 +1,14 @@
 {
-  "log" : {
+  "log": {
     "access": "/dev/null",
     "error": "/dev/null",
     "loglevel": "warning"
   },
  
   "inbounds": [
-  {   
+   {
     "port": 50000,
-    "listen":"127.0.0.1",
+    "listen": "127.0.0.1",
     "protocol": "vmess",
     "settings": {
       "clients": [
@@ -19,22 +19,28 @@
       "security": "auto"
         }
       ]
-    },
-  
+   },  
     "streamSettings": {
       "network": "ws",
       "wsSettings": {
         "connectionReuse": true,
         "path": "/api/"
-        }
+       }
+      }  
     }
-   }
- ],
+  ],
+   "dns": {
+     "servers": [
+       "DOHL_1.0.0.1",
+       "localhost"
+     ]
+   },
   "outbounds": [
-  {
+   {
     "protocol": "freedom",
     "settings": {
     "timeout": 30
     }
-  }
-]
+   }
+  ]
+}
