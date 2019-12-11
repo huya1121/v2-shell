@@ -1,0 +1,46 @@
+{
+
+"log": {
+    "access": "/dev/null",
+    "error": "/dev/null",
+    "loglevel": "warning"
+  },
+
+  "inbounds": [
+    {
+      "port": 10000,
+      "protocol": "vmess",
+      "settings": {
+        "clients": [
+          {
+            "id": "00000000-0000-0000-0000-000000000000",
+            "alterId": 64
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "mkcp",
+        "kcpSettings": {
+          "uplinkCapacity": 10,
+          "downlinkCapacity": 100,
+          "congestion": true,
+          "header": {
+            "type": "utp"
+          }
+        }
+      }
+    }
+  ],
+  "dns": {
+     "servers": [
+       "DOHL_1.0.0.1",
+       "localhost"
+     ]
+  },
+  "outbounds": [
+    {
+      "protocol": "freedom",
+      "settings": {}
+    }
+  ]
+}
