@@ -69,7 +69,7 @@ v2_info(){
 echo "服务器配置信息如下:"
 echo "服务器: $domain"
 echo "端口：443"
-echo "AlterID：64""
+echo "AlterID：64"
 echo "UUID：$uid"
 echo "PATH：/api/"
 echo "WS+TLS"
