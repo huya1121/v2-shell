@@ -41,7 +41,7 @@ echo "证书生成完成！"
 
 v2ray(){
 echo "开始安装/更新v2ray"
-bash <(curl -L -s https://install.direct/go.sh) > /dev/null
+bash <(curl https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh) > /dev/null
 if [ $? == 0 ]; then
 echo "v2ray 安装完成！"
 else
