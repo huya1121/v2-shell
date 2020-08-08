@@ -51,7 +51,7 @@ fi
 }
 
 change_v2conf(){
-wget -qO  /etc/v2ray/config.json  https://raw.githubusercontent.com/huya1121/v2-shell/master/config.json
+wget -qO  /etc/v2ray/config.json  https://raw.githubusercontent.com/huya1121/v2/master/config.json
 ouid=`sed -n '16p' /etc/v2ray/config.json | awk -F'"' '{print $4}'`
 uid=`cat /proc/sys/kernel/random/uuid`
 sed -i "s/$ouid/$uid/g" /etc/v2ray/config.json
@@ -59,7 +59,7 @@ systemctl restart v2ray
 }
 
 conf_nginx(){
-wget -qO /etc/nginx/sites-available/v2.conf https://raw.githubusercontent.com/huya1121/v2-shell/master/v2.conf
+wget -qO /etc/nginx/sites-available/v2.conf https://raw.githubusercontent.com/huya1121/v2/master/v2.conf
 ln -s /etc/nginx/sites-available/v2.conf /etc/nginx/sites-enabled/v2.conf
 sed -i "s/abc.com/$domain/g" /etc/nginx/sites-available/v2.conf
 systemctl restart nginx || /etc/init.d/nginx restart
