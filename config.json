@@ -31,7 +31,7 @@
   ],
    "dns": {
      "servers": [
-       "DOHL_1.0.0.1",
+       "https+local://1.1.1.1/dns-query",
        "localhost"
      ]
    },
