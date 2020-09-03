@@ -41,7 +41,7 @@ echo "证书生成完成！"
 
 v2ray(){
 echo "开始安装/更新v2ray"
-bash <(curl -L -s https://install.direct/go.sh) > /dev/null
+bash <(curl -O https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh) > /dev/null
 if [ $? == 0 ]; then
 echo "v2ray 安装完成！"
 else
@@ -51,10 +51,10 @@ fi
 }
 
 change_v2conf(){
-wget -qO  /etc/v2ray/config.json  https://raw.githubusercontent.com/huya1121/v2/master/config.json
-ouid=`sed -n '16p' /etc/v2ray/config.json | awk -F'"' '{print $4}'`
+wget -qO  /usr/local/etc/v2ray/config.json/etc/v2ray/config.json  https://raw.githubusercontent.com/huya1121/v2/master/config.json
+ouid=`sed -n '16p' /usr/local/etc/v2ray/config.json | awk -F'"' '{print $4}'`
 uid=`cat /proc/sys/kernel/random/uuid`
-sed -i "s/$ouid/$uid/g" /etc/v2ray/config.json
+sed -i "s/$ouid/$uid/g" /usr/local/etc/v2ray/config.json
 systemctl restart v2ray
 }
 
