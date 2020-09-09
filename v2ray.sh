@@ -51,6 +51,7 @@ fi
 }
 
 change_v2conf(){
+mkdir -p /usr/local/etc/v2ray/
 wget -qO  /usr/local/etc/v2ray/config.json  https://raw.githubusercontent.com/huya1121/v2/master/config.json
 ouid=`sed -n '16p' /usr/local/etc/v2ray/config.json | awk -F'"' '{print $4}'`
 uid=`cat /proc/sys/kernel/random/uuid`
