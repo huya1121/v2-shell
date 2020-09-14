@@ -28,7 +28,7 @@ systemctl stop nginx || /etc/init.d/nginx stop
 if [ $? == 0 ]; then
 echo "证书生成完成！"
 else
-echo "安装v2ray失败，请检查网络或者重新安装！"
+echo "安装证书，请检查配置或者重新安装！"
 exit 2
 fi
 systemctl start nginx || /etc/init.d/nginx start
