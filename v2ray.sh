@@ -25,8 +25,14 @@ acme_cer(){
 echo "生成证书中……"
 systemctl stop nginx || /etc/init.d/nginx stop
 /root/.acme.sh/acme.sh  --issue -d $domain  --standalone --force
-systemctl start nginx || /etc/init.d/nginx start
+if [ $? == 0 ]; then
 echo "证书生成完成！"
+else
+echo "安装v2ray失败，请检查网络或者重新安装！"
+exit 2
+fi
+systemctl start nginx || /etc/init.d/nginx start
+
 }
 
 acme_cer_renew(){
@@ -44,6 +50,7 @@ echo "开始安装/更新v2ray"
 bash <(curl -O https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh) > /dev/null
 if [ $? == 0 ]; then
 echo "v2ray 安装完成！"
+systemctl restart v2ray
 else
 echo "安装v2ray失败，请检查网络或者重新安装！"
 exit 2
