@@ -47,7 +47,7 @@ echo "证书生成完成！"
 
 v2ray(){
 echo "开始安装/更新v2ray"
-bash <(curl -L -s https://raw.githubusercontent.com/huya1121/v2-shell/master/v2ray.sh https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh) > /dev/null
+bash <(curl -L -s https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh) > /dev/null
 if [ $? == 0 ]; then
 echo "v2ray 安装完成！"
 systemctl restart v2ray
