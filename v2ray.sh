@@ -45,25 +45,24 @@ systemctl start nginx || /etc/init.d/nginx start
 echo "证书生成完成！"
 }
 
-v2ray(){
-echo "开始安装/更新v2ray"
-bash <(curl -L -s https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh) > /dev/null
+xray(){
+echo "开始安装/更新xray"
+bash <(curl -L https://raw.githubusercontent.com/XTLS/Xray-install/main/install-release.sh)  > /dev/null
 if [ $? == 0 ]; then
-echo "v2ray 安装完成！"
-systemctl restart v2ray
+echo "xray 安装完成！"
+systemctl restart xray
 else
-echo "安装v2ray失败，请检查网络或者重新安装！"
+echo "安装xray失败，请检查网络或者重新安装！"
 exit 2
 fi
 }
 
-change_v2conf(){
-mkdir -p /usr/local/etc/v2ray/
-wget -qO  /usr/local/etc/v2ray/config.json  https://raw.githubusercontent.com/huya1121/v2/master/config.json
-ouid=`sed -n '16p' /usr/local/etc/v2ray/config.json | awk -F'"' '{print $4}'`
+change_xrayconf(){
+wget -qO  /usr/local/etc/xray/config.json  https://raw.githubusercontent.com/huya1121/xray/master/config.json
+ouid=`sed -n '16p' /usr/local/etc/xray/config.json | awk -F'"' '{print $4}'`
 uid=`cat /proc/sys/kernel/random/uuid`
-sed -i "s/$ouid/$uid/g" /usr/local/etc/v2ray/config.json
-systemctl restart v2ray
+sed -i "s/$ouid/$uid/g" /usr/local/etc/xray/config.json
+systemctl restart xray
 }
 
 conf_nginx(){
@@ -73,7 +72,7 @@ sed -i "s/abc.com/$domain/g" /etc/nginx/sites-available/v2.conf
 systemctl restart nginx || /etc/init.d/nginx restart
 }
 
-v2_info(){
+xray_info(){
 echo "服务器配置信息如下:"
 echo "服务器: $domain"
 echo "端口：443"
@@ -89,10 +88,10 @@ depend
 ngx
 install_acme
 acme_cer
-v2ray
-change_v2conf
+xray
+change_xrayconf
 conf_nginx
-v2_info
+xray_info
 exit 0
 }
 
@@ -105,7 +104,7 @@ case $1 in
   acme_cer_renew
   ;;
   *)
-  echo "please use bash v2ray.sh install or bash v2ray.sh renew"
+  echo "please use bash xray.sh install or bash xray.sh renew"
   ;;
 esac
 
