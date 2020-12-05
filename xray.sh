@@ -66,9 +66,9 @@ systemctl restart xray
 }
 
 conf_nginx(){
-wget -qO /etc/nginx/sites-available/v2.conf https://raw.githubusercontent.com/huya1121/v2/master/v2.conf
-ln -s /etc/nginx/sites-available/v2.conf /etc/nginx/sites-enabled/v2.conf
-sed -i "s/abc.com/$domain/g" /etc/nginx/sites-available/v2.conf
+wget -qO /etc/nginx/sites-available/xray.conf https://raw.githubusercontent.com/huya1121/xray/master/xray.conf
+ln -s /etc/nginx/sites-available/xray.conf /etc/nginx/sites-enabled/xray.conf
+sed -i "s/abc.com/$domain/g" /etc/nginx/sites-available/xray.conf
 systemctl restart nginx || /etc/init.d/nginx restart
 }
 
