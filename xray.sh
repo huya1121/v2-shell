@@ -137,10 +137,10 @@ exit 0
 
 #main
 echo "################################"
-echo "#1 install vless+tls           #"
-echo "#2 install vless+nginx+tls     #"
-echo "#3 renew cert                  #"
-echo "#0 exit                        #" 
+echo "#   1 install vless+tls        #"
+echo "#   2 install vless+nginx+tls  #"
+echo "#   3 renew cert               #"
+echo "#   0 exit                     #" 
 echo "################################"
 read -p "请输入："input
 case $input in
