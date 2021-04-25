@@ -66,7 +66,7 @@ systemctl restart xray
 }
 
 change_vless_tls_conf(){
-wget -qO  /usr/local/etc/xray/config.json  https://raw.githubusercontent.com/huya1121/xray/master/config.json.tls
+wget -qO  /usr/local/etc/xray/config.json  https://raw.githubusercontent.com/huya1121/xray/master/config.json.xtls
 ouid=`sed -n '12p' /usr/local/etc/xray/config.json | awk -F'"' '{print $4}'`
 uid=`cat /proc/sys/kernel/random/uuid`
 sed -i "s/$ouid/$uid/g" /usr/local/etc/xray/config.json
