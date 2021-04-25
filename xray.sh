@@ -57,7 +57,7 @@ exit 2
 fi
 }
 
-change_xrayconf(){
+change_vless_nginx_tls_conf(){
 wget -qO  /usr/local/etc/xray/config.json  https://raw.githubusercontent.com/huya1121/xray/master/config.json
 ouid=`sed -n '16p' /usr/local/etc/xray/config.json | awk -F'"' '{print $4}'`
 uid=`cat /proc/sys/kernel/random/uuid`
@@ -65,8 +65,25 @@ sed -i "s/$ouid/$uid/g" /usr/local/etc/xray/config.json
 systemctl restart xray
 }
 
+change_vless_tls_conf(){
+wget -qO  /usr/local/etc/xray/config.json  https://raw.githubusercontent.com/huya1121/xray/master/config.json.tls
+ouid=`sed -n '12p' /usr/local/etc/xray/config.json | awk -F'"' '{print $4}'`
+uid=`cat /proc/sys/kernel/random/uuid`
+sed -i "s/$ouid/$uid/g" /usr/local/etc/xray/config.json
+systemctl restart xray
+}
+
 conf_nginx(){
 wget -qO /etc/nginx/sites-available/xray.conf https://raw.githubusercontent.com/huya1121/xray/master/xray.conf
+ln -s /etc/nginx/sites-available/xray.conf /etc/nginx/sites-enabled/xray.conf
+sed -i "s/abc.com/$domain/g" /etc/nginx/sites-available/xray.conf
+systemctl restart nginx || /etc/init.d/nginx restart
+}
+
+
+conf_nginx_fallback(){
+wget -qO /etc/nginx/sites-available/xray.conf https://raw.githubusercontent.com/huya1121/xray/master/xray2.conf
+wget -qO /var/www/html/index.html https://raw.githubusercontent.com/huya1121/xray/master/index.html
 ln -s /etc/nginx/sites-available/xray.conf /etc/nginx/sites-enabled/xray.conf
 sed -i "s/abc.com/$domain/g" /etc/nginx/sites-available/xray.conf
 systemctl restart nginx || /etc/init.d/nginx restart
@@ -83,28 +100,63 @@ echo "WS+TLS"
 echo "安装完成"
 }
 
-install(){
+xray_vless_xtls(){
+echo "服务器配置信息如下:"
+echo "服务器: $domain"
+echo "端口：443"
+echo "UUID：$uid"
+echo "flow：xtls-rprx-direct"
+echo "Vless+XTLS"
+echo "transport: tcp+xtls"
+echo "安装完成"
+}
+
+vless_tls(){
 depend
 ngx
 install_acme
 acme_cer
 xray
-change_xrayconf
+change_vless_tls_conf
+conf_nginx_fallback
+xray_vless_xtls
+exit 0
+}
+
+vless_nginx_tls(){
+depend
+ngx
+install_acme
+acme_cer
+xray
+change_vless_nginx_tls_conf
 conf_nginx
 xray_info
 exit 0
 }
 
 #main
+echo ################################
+echo #1 install vless+tls          #
+echo #2 install vless+nginx+tls     #
+echo #3 renew cert
+echo #0 exit 
+echo ################################
 case $1 in
-  install | start)
-  install
+  1)
+  vless_tls
   ;;
-  renew)
+  2)
+  vless_tls
+  ;;
+  3)
   acme_cer_renew
   ;;
+    3)
+  exit 0
+  ;;
   *)
-  echo "please use bash xray.sh install or bash xray.sh renew"
+  echo "please use bash xray.sh"
   ;;
 esac
 
