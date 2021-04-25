@@ -40,8 +40,10 @@ read -p "请输入域名:" renewdomain
 echo "您输入的域名是：$renewdomain"
 echo "生成证书中……"
 systemctl stop nginx || /etc/init.d/nginx stop
+systemctl stop  xray
 /root/.acme.sh/acme.sh  --issue -d $renewdomain  --standalone --force
 systemctl start nginx || /etc/init.d/nginx start
+systemctl start  xray
 echo "证书生成完成！"
 }
 
@@ -141,6 +143,7 @@ echo "################################"
 echo "#   1 install vless+tls        #"
 echo "#   2 install vless+nginx+tls  #"
 echo "#   3 renew cert               #"
+echo "#   4 update xray               #"
 echo "#   0 exit                     #" 
 echo "################################"
 read -p "请输入：" input
@@ -154,7 +157,10 @@ case $input in
   3)
   acme_cer_renew
   ;;
-    3)
+  4)
+  xray
+  ;;
+   0)
   exit 0
   ;;
   *)
