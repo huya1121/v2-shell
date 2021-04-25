@@ -142,7 +142,8 @@ echo #2 install vless+nginx+tls     #
 echo #3 renew cert
 echo #0 exit 
 echo ################################
-case $1 in
+read -p "请输入："input
+case $input in
   1)
   vless_tls
   ;;
