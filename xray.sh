@@ -64,6 +64,8 @@ wget -qO  /usr/local/etc/xray/config.json  https://raw.githubusercontent.com/huy
 ouid=`sed -n '16p' /usr/local/etc/xray/config.json | awk -F'"' '{print $4}'`
 uid=`cat /proc/sys/kernel/random/uuid`
 sed -i "s/$ouid/$uid/g" /usr/local/etc/xray/config.json
+sed -i "s/nobody/root/g" /etc/systemd/system/xray.service
+systemctl daemon-reload
 systemctl restart xray
 }
 
@@ -143,7 +145,7 @@ echo "################################"
 echo "#   1 install vless+tls        #"
 echo "#   2 install vless+nginx+tls  #"
 echo "#   3 renew cert               #"
-echo "#   4 update xray               #"
+echo "#   4 update xray              #"
 echo "#   0 exit                     #" 
 echo "################################"
 read -p "请输入：" input
