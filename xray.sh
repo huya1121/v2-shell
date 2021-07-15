@@ -155,7 +155,7 @@ case $input in
   vless_tls
   ;;
   2)
-  vless_tls
+  vless_nginx_tls
   ;;
   3)
   acme_cer_renew
