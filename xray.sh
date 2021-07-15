@@ -17,14 +17,13 @@ echo "安装acme.sh"
 curl  https://get.acme.sh | sh > /dev/null
 echo "alias acme.sh=~/.acme.sh/acme.sh" >> /root/.bashrc
 source /root/.bashrc
-/root/.acme.sh/acme.sh --set-default-ca  --server  letsencrypt
 echo "acme.h 安装完成!"
 fi
 }
 
 acme_cer(){
 echo "生成证书中……"
-
+/root/.acme.sh/acme.sh --set-default-ca  --server  letsencrypt
 systemctl stop nginx || /etc/init.d/nginx stop
 /root/.acme.sh/acme.sh  --issue -d $domain  --standalone --force
 if [ $? == 0 ]; then
