@@ -1,6 +1,6 @@
 #/bin/bash
 depend(){
-apt-get update -y && apt-get upgrade -y
+apt-get update -y
 apt-get install wget socat curl zip -y
 read -p "请输入域名:" domain
 echo "您输入的域名是：$domain"
