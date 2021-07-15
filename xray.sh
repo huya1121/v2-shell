@@ -69,7 +69,7 @@ systemctl daemon-reload
 systemctl restart xray
 }
 
-change_vless_tls_conf(){
+change_vless_xtls_conf(){
 wget -qO  /usr/local/etc/xray/config.json  https://raw.githubusercontent.com/huya1121/xray/master/config.json.xtls
 ouid=`sed -n '12p' /usr/local/etc/xray/config.json | awk -F'"' '{print $4}'`
 uid=`cat /proc/sys/kernel/random/uuid`
@@ -106,7 +106,7 @@ echo "WS+TLS"
 echo "安装完成"
 }
 
-xray_vless_xtls(){
+xray_vless_tls(){
 echo "服务器配置信息如下:"
 echo "服务器: $domain"
 echo "端口：443"
@@ -117,33 +117,31 @@ echo "transport: tcp+xtls"
 echo "安装完成"
 }
 
-vless_tls(){
-depend
-ngx
-install_acme
-acme_cer
-xray
-change_vless_tls_conf
-conf_nginx_fallback
-xray_vless_xtls
-exit 0
-}
-
 vless_nginx_tls(){
 depend
 ngx
 install_acme
 acme_cer
 xray
-change_vless_nginx_tls_conf
+change_vless_tls_conf
 conf_nginx
+exit 0
+}
+vless_xtls(){
+depend
+ngx
+install_acme
+acme_cer
+xray
+change_vless_xtls_conf
+conf_nginx_fallback
 xray_info
 exit 0
 }
 
 #main
 echo "################################"
-echo "#   1 install vless+tls        #"
+echo "#   1 install vless+xtls        #"
 echo "#   2 install vless+nginx+tls  #"
 echo "#   3 renew cert               #"
 echo "#   4 update xray              #"
@@ -152,7 +150,7 @@ echo "################################"
 read -p "请输入：" input
 case $input in
   1)
-  vless_tls
+  vless_xtls
   ;;
   2)
   vless_nginx_tls
