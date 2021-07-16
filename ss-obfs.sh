@@ -1,8 +1,7 @@
+#Debian10 supported
 #/bin/bash
-sh -c 'printf "deb http://deb.debian.org/debian stretch-backports main" > /etc/apt/sources.list.d/stretch-backports.list'
 apt update
-apt -t stretch-backports install shadowsocks-libev simple-obfs -y
-apt-get install libsodium-dev -y
+apt-get install libsodium-dev shadowsocks-libev simple-obfs -y
 apt-get clean
 
 read -p "请输入SS端口:" SSPORT
@@ -14,7 +13,6 @@ cat > /etc/shadowsocks-libev/config.json << EOF
     "server_port":$SSPORT,
     "password":"$SSPASSWORD",
     "timeout":300,
-    "user":"nobody",
     "method":"chacha20-ietf-poly1305",
     "fast_open":false,
     "nameserver":"1.0.0.1",
