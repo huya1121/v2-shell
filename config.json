@@ -9,12 +9,14 @@
    {
     "port": 50000,
     "listen": "127.0.0.1",
-    "protocol": "vless",
+    "protocol": "vmess",
     "settings": {
       "clients": [
         {
           "id": "00000000-0000-0000-0000-000000000000",
-          "level": 0
+          "level": 1,
+          "alterId": 64,
+          "security": "auto"
         }
       ],
       "decryption": "none"
