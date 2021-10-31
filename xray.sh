@@ -26,6 +26,10 @@ echo "生成证书中……"
 /root/.acme.sh/acme.sh --set-default-ca  --server  letsencrypt
 systemctl stop nginx || /etc/init.d/nginx stop
 /root/.acme.sh/acme.sh  --issue -d $domain  --standalone --force
+acme.sh --install-cert -d $domain \
+--key-file       /nginx/ssl/$domain.key.pem  \
+--fullchain-file /nginx//ssl/$domain.cert.pem \
+--reloadcmd     "service nginx force-reload"
 if [ $? == 0 ]; then
 echo "证书生成完成！"
 else
