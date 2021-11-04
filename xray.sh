@@ -40,7 +40,8 @@ acme.sh --install-cert -d $domain \
 systemctl start nginx || /etc/init.d/nginx start
 
 }
-
+chown nobody /etc/nginx/ssl/$domain.key.pem
+chown nobody /etc/nginx//ssl/$domain.cert.pem
 acme_cer_renew(){
 read -p "请输入域名:" renewdomain
 echo "您输入的域名是：$renewdomain"
