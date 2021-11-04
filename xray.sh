@@ -82,7 +82,6 @@ ouid=`sed -n '12p' /usr/local/etc/xray/config.json | awk -F'"' '{print $4}'`
 uid=`cat /proc/sys/kernel/random/uuid`
 sed -i "s/$ouid/$uid/g" /usr/local/etc/xray/config.json
 sed -i "s/abc.com/$domain/g" /usr/local/etc/xray/config.json
-sed -i "s/nobody/root/g" /etc/systemd/system/xray.service
 systemctl restart xray
 }
 
