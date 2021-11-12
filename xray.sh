@@ -53,8 +53,17 @@ systemctl stop nginx || /etc/init.d/nginx stop
 systemctl stop  xray
 /root/.acme.sh/acme.sh  --issue -d $renewdomain  --standalone --force
 systemctl start nginx || /etc/init.d/nginx start
-systemctl start  xray
+
+mkdir /etc/nginx/ssl
+/root/.acme.sh/acme.sh --install-cert -d $domain \
+--key-file       /etc/nginx/ssl/$renewdomain.key.pem  \
+--fullchain-file /etc/nginx/ssl/$renewdomain.cert.pem \
+--reloadcmd     "service nginx force-reload"
+chown nobody /etc/nginx/ssl/$renewdomain.key.pem
+chown nobody /etc/nginx//ssl/$renewdomain.cert.pem
+systemctl restart  xray
 echo "证书生成完成！"
+
 }
 
 xray(){
