@@ -32,6 +32,7 @@ else
 echo "安装证书，请检查配置或者重新安装！"
 exit 2
 fi
+systemctl start nginx
 mkdir /etc/nginx/ssl
 /root/.acme.sh/acme.sh --install-cert -d $domain \
 --key-file       /etc/nginx/ssl/$domain.key.pem  \
