@@ -31,8 +31,8 @@
                     ],
                     "certificates": [
                         {
-                            "certificateFile": "/root/.acme.sh/abc.com/abc.com.cer", // 换成你的证书
-                            "keyFile": "/root/.acme.sh/abc.com/abc.com.key" // 换成你的私钥
+                            "certificateFile": "/etc/nginx/ssl/abc.com.cert.pem", // 换成你的证书
+                            "keyFile": "/etc/nginx/ssl/abc.com.key.pem" // 换成你的私钥
                         }
                     ]
                 }
