@@ -141,7 +141,7 @@ acme_cer
 xray
 change_vless_xtls_conf
 conf_nginx_fallback
-xray_info
+xray_vless_tls
 exit 0
 }
 
