@@ -38,7 +38,7 @@ systemctl start nginx || /etc/init.d/nginx start
 mkdir /etc/nginx/ssl
 /root/.acme.sh/acme.sh --install-cert -d $domain \
 --key-file       /etc/nginx/ssl/$domain.key.pem  \
---fullchain-file /etc/nginx//ssl/$domain.cert.pem \
+--fullchain-file /etc/nginx/ssl/$domain.cert.pem \
 --reloadcmd     "service nginx force-reload"
 
 chown nobody /etc/nginx/ssl/$domain.key.pem
