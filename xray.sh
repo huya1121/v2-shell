@@ -142,6 +142,7 @@ acme_cer
 xray
 change_vmess_nginx_tls_conf
 conf_nginx
+xray_info
 exit 0
 }
 vless_xtls(){
