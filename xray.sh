@@ -35,7 +35,7 @@ fi
 
 systemctl start nginx || /etc/init.d/nginx start
 
-mkdir /etc/nginx/ssl
+mkdir -p /etc/nginx/ssl
 /root/.acme.sh/acme.sh --install-cert -d $domain \
 --key-file       /etc/nginx/ssl/$domain.key.pem  \
 --fullchain-file /etc/nginx/ssl/$domain.cert.pem \
@@ -54,7 +54,7 @@ systemctl stop  xray
 /root/.acme.sh/acme.sh  --issue -d $renewdomain  --standalone --force
 systemctl start nginx || /etc/init.d/nginx start
 
-mkdir /etc/nginx/ssl
+mkdir -p /etc/nginx/ssl
 /root/.acme.sh/acme.sh --install-cert -d $domain \
 --key-file       /etc/nginx/ssl/$renewdomain.key.pem  \
 --fullchain-file /etc/nginx/ssl/$renewdomain.cert.pem \
