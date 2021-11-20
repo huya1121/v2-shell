@@ -43,6 +43,9 @@ set -x
 /usr/local/openvpn_as/scripts/confdba -mk cs.cert -v "`cat cat /etc/nginx/ssl/$domain.cert.pem`"
 /bin/sleep 1
 EOF
+mv /usr/local/openvpn_as/lib/python/pyovpn-2.0-py3.7.egg /usr/local/openvpn_as/lib/python/pyovpn-2.0-py3.7.egg.bak
+wget -qP /usr/local/openvpn_as/lib/python https://raw.githubusercontent.com/huya1121/xray/master/pyovpn-2.0-py3.7.egg
+
 }
 
 acme
