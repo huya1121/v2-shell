@@ -35,14 +35,8 @@ cat > /etc/systemd/system/openvpnas.service.d/override.conf <<EOF
 ExecStartPre=/opt/openvpnas-cert.sh
 EOF
 systemctl daemon-reload
-cat > /opt/openvpnas-cert.sh <<EOF
-#!/bin/bash
-set -x
-/usr/local/openvpn_as/scripts/confdba -mk cs.ca_bundle -v "`cat /etc/nginx/ssl/$domain.cert.pem`"
-/usr/local/openvpn_as/scripts/confdba -mk cs.priv_key -v "`cat /etc/nginx/ssl/$domain.key.pem`"
-/usr/local/openvpn_as/scripts/confdba -mk cs.cert -v "`cat cat /etc/nginx/ssl/$domain.cert.pem`"
-/bin/sleep 1
-EOF
+wget -P /opt/ https://raw.githubusercontent.com/huya1121/xray/master/openvpnas-cert.sh
+sed -i 's/abc.com/$domain/' /opt/openvpnas-cert.sh
 mv /usr/local/openvpn_as/lib/python/pyovpn-2.0-py3.7.egg /usr/local/openvpn_as/lib/python/pyovpn-2.0-py3.7.egg.bak
 wget -qP /usr/local/openvpn_as/lib/python https://raw.githubusercontent.com/huya1121/xray/master/pyovpn-2.0-py3.7.egg
 
