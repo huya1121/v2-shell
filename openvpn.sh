@@ -1,4 +1,4 @@
-#install openvpn-as
+#install openvpn-as in debian 10+
  
 apt update && apt -y install ca-certificates wget net-tools gnupg nginx
 curl  https://get.acme.sh | sh -s email=my@example.com
