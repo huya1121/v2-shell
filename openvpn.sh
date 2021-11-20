@@ -34,7 +34,7 @@ cat > /etc/systemd/system/openvpnas.service.d/override.conf <<EOF
 [Service]
 ExecStartPre=/opt/openvpnas-cert.sh
 EOF
-
+systemctl daemon-reload
 cat > /opt/openvpnas-cert.sh <<EOF
 #!/bin/bash
 set -x
@@ -50,3 +50,4 @@ wget -qP /usr/local/openvpn_as/lib/python https://raw.githubusercontent.com/huya
 
 acme
 openvpnas
+systemctl restart openvpnas
