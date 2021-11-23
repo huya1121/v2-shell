@@ -1,6 +1,6 @@
 #install openvpn-as in debian 10+
  
-apt update && apt -y install ca-certificates wget net-tools gnupg nginx
+apt update && apt -y install ca-certificates wget net-tools gnupg nginx socat
 curl  https://get.acme.sh | sh -s email=my@example.com
 
 read -p "请输入域名:" domain
