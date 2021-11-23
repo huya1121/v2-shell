@@ -11,7 +11,7 @@ echo "安装证书中"
 /root/.acme.sh/acme.sh --issue -d $domain   --standalone
 /etc/init.d/nginx start
 mkdir -p /etc/nginx/ssl/
-acme.sh --install-cert -d $domain \
+/root/.acme.sh/acme.sh --install-cert -d $domain \
 --key-file       /etc/nginx/ssl/$domain.key.pem  \
 --fullchain-file /etc/nginx/ssl/$domain.cert.pem \
 --reloadcmd     "service nginx force-reload"
