@@ -2,9 +2,6 @@
  
 apt update && apt -y install ca-certificates wget net-tools gnupg nginx socat
 curl  https://get.acme.sh | sh -s email=my@example.com
-
-read -p "请输入域名:" domain
-
 acme(){
 echo "安装证书中"
 /etc/init.d/nginx stop
@@ -37,11 +34,13 @@ EOF
 systemctl daemon-reload
 wget -P /opt/ https://raw.githubusercontent.com/huya1121/xray/master/openvpnas-cert.sh
 sed -i 's/abc.com/$domain/' /opt/openvpnas-cert.sh
+chmod +x /opt/openvpnas-cert.sh
 mv /usr/local/openvpn_as/lib/python/pyovpn-2.0-py3.7.egg /usr/local/openvpn_as/lib/python/pyovpn-2.0-py3.7.egg.bak
 wget -qP /usr/local/openvpn_as/lib/python https://raw.githubusercontent.com/huya1121/xray/master/pyovpn-2.0-py3.7.egg
 
 }
 
+read -p "请输入域名:" domain
 acme
 openvpnas
 systemctl restart openvpnas
