@@ -22,7 +22,7 @@ fi
 openvpnas() {
 wget -qO - https://as-repository.openvpn.net/as-repo-public.gpg | apt-key add -
 echo "deb http://as-repository.openvpn.net/as/debian buster main">/etc/apt/sources.list.d/openvpn-as-repo.list
-apt update && apt -y install openvpn-as
+apt update && apt -y install openvpn-as > ~/openvpnpassword
 mkdir -p /etc/systemd/system/openvpnas.service.d
 cat > /etc/systemd/system/openvpnas.service.d/override.conf <<EOF
 [Service]
