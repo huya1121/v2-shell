@@ -12,14 +12,11 @@ mkdir -p /etc/nginx/ssl/
 --key-file       /etc/nginx/ssl/$domain.key.pem  \
 --fullchain-file /etc/nginx/ssl/$domain.cert.pem \
 --reloadcmd     "service nginx force-reload"
-if [ $? eq 0 ]; then {
+if [ $? eq 0 ]; then
 echo "安装证书完成"
-}
-else {
+else 
 echo "安装证书失败"
-}
 fi
-}
 
 
 openvpnas() {
