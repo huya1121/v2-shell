@@ -40,3 +40,4 @@ wget -qP /usr/local/openvpn_as/lib/python https://raw.githubusercontent.com/huya
 acme
 openvpnas
 systemctl restart openvpnas
+echo "安装完成，请在openvpnpassword中查看管理员登录密码"
