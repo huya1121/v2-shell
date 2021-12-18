@@ -30,7 +30,7 @@ ExecStartPre=/opt/openvpnas-cert.sh
 EOF
 systemctl daemon-reload
 wget -P /opt/ https://raw.githubusercontent.com/huya1121/xray/master/openvpnas-cert.sh
-sed -i 's/abc.com/$domain/g' /opt/openvpnas-cert.sh
+sed -i "s/abc.com/$domain/g" /opt/openvpnas-cert.sh
 chmod +x /opt/openvpnas-cert.sh
 mv /usr/local/openvpn_as/lib/python/pyovpn-2.0-py3.7.egg /usr/local/openvpn_as/lib/python/pyovpn-2.0-py3.7.egg.bak
 wget -qP /usr/local/openvpn_as/lib/python https://raw.githubusercontent.com/huya1121/xray/master/pyovpn-2.0-py3.7.egg
