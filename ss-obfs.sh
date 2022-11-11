@@ -28,7 +28,6 @@ Description=shadowsocks-libev
 After=network.target
 [Service]
 Type=simple
-User="nobody"
 ExecStart=/usr/bin/ss-server -c /etc/shadowsocks-libev/config.json
 Restart=always
 LimitNOFILE=512000
