@@ -4,7 +4,7 @@ apt-get update -y
 apt-get install wget socat curl zip -y
 read -p "请输入域名:" domain
 echo "您输入的域名是：$domain"
-read -p "请输入生成证书的邮箱:" $acme_email
+read -p "请输入生成证书的邮箱:" acme_email
 echo "您输入的域名是：$acme_email"
 }
 
