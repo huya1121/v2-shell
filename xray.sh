@@ -4,6 +4,8 @@ apt-get update -y
 apt-get install wget socat curl zip -y
 read -p "请输入域名:" domain
 echo "您输入的域名是：$domain"
+read -p "请输入生成证书的邮箱:" $acme_email
+echo "您输入的域名是：$acme_email"
 }
 
 ngx(){
@@ -14,7 +16,7 @@ systemctl restart nginx || /etc/init.d/nginx restart
 install_acme(){
 if [ ! -d "/root/.acme.sh" ]; then
 echo "安装acme.sh"
-curl  https://get.acme.sh | sh > /dev/null
+curl  https://get.acme.sh | sh -s email=$acme_email > /dev/null
 echo "alias acme.sh=~/.acme.sh/acme.sh" >> /root/.bashrc
 source /root/.bashrc
 echo "acme.h 安装完成!"
