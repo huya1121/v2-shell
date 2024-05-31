@@ -57,7 +57,7 @@ systemctl stop  xray
 systemctl start nginx || /etc/init.d/nginx start
 
 mkdir -p /etc/nginx/ssl
-/root/.acme.sh/acme.sh --install-cert -d $domain \
+/root/.acme.sh/acme.sh --install-cert -d $renewdomain \
 --key-file       /etc/nginx/ssl/$renewdomain.key.pem  \
 --fullchain-file /etc/nginx/ssl/$renewdomain.cert.pem \
 --reloadcmd     "service nginx force-reload"
