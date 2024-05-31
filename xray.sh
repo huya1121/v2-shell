@@ -60,7 +60,7 @@ mkdir -p /etc/nginx/ssl
 /root/.acme.sh/acme.sh --install-cert -d $renewdomain \
 --key-file       /etc/nginx/ssl/$renewdomain.key.pem  \
 --fullchain-file /etc/nginx/ssl/$renewdomain.cert.pem \
---reloadcmd     "service nginx force-reload"
+--reloadcmd     "systemctl restart nginx"
 chown nobody /etc/nginx/ssl/$renewdomain.key.pem
 chown nobody /etc/nginx//ssl/$renewdomain.cert.pem
 systemctl restart  xray
