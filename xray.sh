@@ -41,7 +41,7 @@ mkdir -p /etc/nginx/ssl
 /root/.acme.sh/acme.sh --install-cert -d $domain \
 --key-file       /etc/nginx/ssl/$domain.key.pem  \
 --fullchain-file /etc/nginx/ssl/$domain.cert.pem \
---reloadcmd     "service nginx force-reload"
+--reloadcmd     "systemctl restart nginx"
 
 chown nobody /etc/nginx/ssl/$domain.key.pem
 chown nobody /etc/nginx//ssl/$domain.cert.pem
